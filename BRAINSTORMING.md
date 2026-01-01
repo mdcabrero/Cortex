@@ -1,12 +1,12 @@
 # Brainstorming Skill Guide
 
-A practical guide for understanding and using the Superpowers brainstorming workflow.
+A practical guide for understanding and using the Cortex brainstorming workflow.
 
 ---
 
 ## What Is the Brainstorming Skill?
 
-The brainstorming skill turns rough ideas into validated designs through **collaborative dialogue**. It's the entry point to the Superpowers workflow - ensuring you think before you code.
+The brainstorming skill turns rough ideas into validated designs through **collaborative dialogue**. It's the entry point to the Cortex workflow - ensuring you think before you code.
 
 **Location:** `skills/brainstorming/SKILL.md`
 
@@ -21,7 +21,7 @@ The skill triggers **automatically** before any creative work:
 
 You can also **explicitly invoke it**:
 ```
-/superpowers:brainstorm
+/cortex:brainstorm
 ```
 
 ---
@@ -42,7 +42,7 @@ Turn 2-N: Conversation continues
 
 Final turn: Design validated, saved to docs/plans/
             └── Claude asks "Ready to set up for implementation?"
-            └── If yes → invokes writing-plans skill
+            └── If yes → creates implementation plan, then uses executing-plans
 ```
 
 **Key point:** Skills are loaded once and followed until complete - not re-activated every turn.
@@ -101,32 +101,27 @@ brainstorming ──outputs──▶ Design Document (docs/plans/*-design.md)
       │
       │ "Ready to set up for implementation?"
       ▼
-writing-plans ──outputs──▶ Implementation Plan (docs/plans/*.md)
+Create implementation plan
       │
-      │ "Two execution options..."
       ▼
-executing-plans  OR  subagent-driven-development
+executing-plans (batch execution with checkpoints)
 ```
 
 ### Skill Transitions
 
 | From | To | Trigger |
 |------|----|---------|
-| brainstorming | using-git-worktrees | "Ready to set up for implementation?" (user confirms) |
-| using-git-worktrees | writing-plans | Worktree created and tests pass |
-| writing-plans | executing-plans | User chooses "Parallel Session" |
-| writing-plans | subagent-driven-development | User chooses "Subagent-Driven" |
+| brainstorming | executing-plans | User confirms ready for implementation |
 
 ---
 
 ## Design vs Plan: Key Differences
 
-| Brainstorming Output | Writing-Plans Output |
-|---------------------|---------------------|
-| **Design document** | **Implementation plan** |
+| Design Document | Implementation Plan |
+|-----------------|---------------------|
 | What to build | How to build it |
 | Architecture, components, data flow | Exact files, code snippets, test commands |
-| High-level decisions | Bite-sized tasks (2-5 min each) |
+| High-level decisions | Bite-sized tasks |
 | Iterative refinement | Executable steps |
 
 ---
@@ -162,22 +157,15 @@ Claude: "Got it, fixing task 2..."
 
 ---
 
-## Execution Options
+## Execution
 
-After writing-plans completes, you choose between:
+After design is complete, use `cortex:executing-plans` to implement in batches:
 
-| Option | How It Works | When to Use |
-|--------|--------------|-------------|
-| **executing-plans** | Batch execution (3 tasks), human checkpoints | When you want control between batches |
-| **subagent-driven-development** | Fresh agent per task + 2-stage review | When you want faster autonomous execution |
-
-### Subagent-Driven Development Details
-
-1. **Fresh subagent per task** - No context pollution
-2. **Two-stage review per task:**
-   - Spec compliance review (does it match requirements?)
-   - Code quality review (is it well-written?)
-3. Review loops continue until both pass
+| Feature | Description |
+|---------|-------------|
+| **Batch execution** | Execute 3 tasks at a time |
+| **Human checkpoints** | Report progress and wait for feedback between batches |
+| **Controlled progress** | Stop and ask when blocked |
 
 ---
 
@@ -214,7 +202,7 @@ Claude: "Design complete. I've saved it to docs/plans/2026-01-01-reading-tracker
 
 You: "Yes"
 
-Claude: (invokes using-git-worktrees, then writing-plans)
+Claude: (creates implementation plan, then uses executing-plans)
 ```
 
 ---
@@ -225,7 +213,7 @@ Claude: (invokes using-git-worktrees, then writing-plans)
 |------|-------|
 | Design documents | `docs/plans/YYYY-MM-DD-<topic>-design.md` |
 | Implementation plans | `docs/plans/YYYY-MM-DD-<feature>.md` |
-| Git worktrees | `.worktrees/` or `~/.config/superpowers/worktrees/` |
+| Git worktrees | `.worktrees/` |
 
 ---
 
@@ -233,11 +221,9 @@ Claude: (invokes using-git-worktrees, then writing-plans)
 
 | Phase | Skill | Turns | Output |
 |-------|-------|-------|--------|
-| Brainstorming | `brainstorming` | Multiple (until design done) | Design document |
-| Workspace setup | `using-git-worktrees` | 1-2 | Isolated git worktree |
-| Planning | `writing-plans` | 1-2 | Implementation plan |
-| Execution | `executing-plans` or `subagent-driven-development` | Multiple | Working code |
-| Completion | `finishing-a-development-branch` | 1-2 | Merged/PR'd work |
+| Brainstorming | `cortex:brainstorming` | Multiple (until design done) | Design document |
+| Planning | Manual | 1-2 | Implementation plan |
+| Execution | `cortex:executing-plans` | Multiple | Working code |
 
 ---
 

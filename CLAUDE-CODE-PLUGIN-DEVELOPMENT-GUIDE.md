@@ -1,6 +1,6 @@
 # Claude Code Plugin Development Guide
 
-> A comprehensive guide to building Claude Code plugin systems, based on analysis of the Superpowers plugin architecture.
+> A comprehensive guide to building Claude Code plugin systems.
 
 ---
 
@@ -1252,7 +1252,7 @@ Prefix skill names with your plugin namespace:
 ```
 my-plugin:skill-name
 design-patterns:factory-pattern
-superpowers:test-driven-development
+cortex:brainstorming
 ```
 
 This prevents conflicts between plugins and makes references unambiguous.
@@ -1898,4 +1898,4 @@ Start with the [Minimal Working Plugin](#12-complete-example-minimal-working-plu
 
 ---
 
-*This guide was created by analyzing the [Superpowers](https://github.com/obra/superpowers) plugin architecture.*
+*This guide was originally created by analyzing the Superpowers plugin architecture and has been adapted for Cortex.*

@@ -1,13 +1,12 @@
 {
-  "name": "superpowers",
-  "description": "Core skills library for Claude Code: TDD, debugging, collaboration patterns, and proven techniques",
-  "version": "4.0.3",
+  "name": "cortex",
+  "description": "Core skills library for Claude Code: brainstorming, planning, execution patterns, and proven techniques",
+  "version": "1.0.0",
   "author": {
-    "name": "Jesse Vincent",
-    "email": "jesse@fsck.com"
+    "name": "Cortex Team"
   },
-  "homepage": "https://github.com/obra/superpowers",
-  "repository": "https://github.com/obra/superpowers",
+  "homepage": "https://github.com/mdcabrero/Cortex",
+  "repository": "https://github.com/mdcabrero/Cortex",
   "license": "MIT",
-  "keywords": ["skills", "tdd", "debugging", "collaboration", "best-practices", "workflows"]
+  "keywords": ["skills", "brainstorming", "planning", "execution", "design-patterns", "best-practices", "workflows"]
 }
