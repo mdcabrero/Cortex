@@ -13,7 +13,8 @@ Cortex provides a structured workflow for software development with Claude Code.
 
 | Skill | When to Use |
 |-------|-------------|
-| `cortex:brainstorming` | Before any creative work - designing features, building components, adding functionality |
+| `cortex:brainstorming` | Before any creative work - exploring rough ideas, designing features, building components |
+| `cortex:feature-builder` | When adding a new feature to an existing codebase - analyzes docs and code patterns to create a spec and implementation plan |
 | `cortex:executing-plans` | When you have a written implementation plan to execute with review checkpoints |
 | `cortex:writing-skills` | When creating, editing, or testing new skills for Claude Code |
 | `cortex:code-smeller` | When reviewing code quality, identifying structural problems, or assessing code health |
@@ -22,7 +23,8 @@ Cortex provides a structured workflow for software development with Claude Code.
 ## Skill Categories
 
 **Development Workflow:**
-- brainstorming → executing-plans
+- brainstorming → executing-plans (for rough ideas)
+- feature-builder → executing-plans (for clear feature requests)
 
 **Code Quality:**
 - code-smeller → pattern-engineer
@@ -32,9 +34,13 @@ Cortex provides a structured workflow for software development with Claude Code.
 
 ## The Core Workflow
 
-1. **Brainstorm** - Refine ideas through dialogue, explore approaches, validate design
-2. **Plan** - Break work into bite-sized tasks with verification steps
-3. **Execute** - Implement in batches with human checkpoints
+**Path A: Rough idea → Implementation**
+1. **Brainstorm** - Refine rough ideas through dialogue, explore approaches, validate design
+2. **Execute** - Implement the plan in batches with human checkpoints
+
+**Path B: Clear feature → Implementation**
+1. **Feature Build** - Analyze codebase, create technical spec and implementation plan
+2. **Execute** - Implement the plan in batches with human checkpoints
 
 ## How Skills Work
 

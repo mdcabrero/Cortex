@@ -42,18 +42,21 @@ Check that commands appear:
 
 ## The Basic Workflow
 
-1. **brainstorming** - Activates before writing code. Refines rough ideas through questions, explores alternatives, presents design in sections for validation. Saves design document.
+**Path A: Rough idea → Implementation**
+1. **brainstorming** - Refines rough ideas through questions, explores alternatives, presents design in sections for validation
+2. **executing-plans** - Executes in batches with human checkpoints
 
-2. **executing-plans** - Activates with plan. Executes in batches with human checkpoints.
-
-3. **writing-skills** - Create new skills following TDD principles adapted to documentation.
+**Path B: Clear feature → Implementation**
+1. **feature-builder** - Analyzes codebase (docs + code patterns), creates technical specification and implementation plan
+2. **executing-plans** - Executes in batches with human checkpoints
 
 ## What's Inside
 
 ### Skills Library
 
 **Development Workflow**
-- **brainstorming** - Socratic design refinement
+- **brainstorming** - Socratic design refinement for rough ideas
+- **feature-builder** - Codebase-aware feature planning and specification
 - **executing-plans** - Batch execution with checkpoints
 
 **Code Quality**
