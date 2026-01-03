@@ -199,7 +199,7 @@ Write the final specification and plan to `docs/plans/YYYY-MM-DD-<feature>-spec.
 Don't design features without understanding the existing code. You'll create inconsistent implementations.
 
 **Over-scoping**
-Feature Builder is for ONE feature. If scope creeps into multiple features, stop and break it down.
+Feature Builder is for ONE feature. If scope creeps into multiple features, stop and ask the user where to start.
 
 **Ignoring existing patterns**
 If the codebase uses a certain pattern (e.g., repository pattern, specific folder structure), match it. Don't introduce new patterns without good reason.
