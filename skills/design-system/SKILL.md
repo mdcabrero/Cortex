@@ -1,15 +1,6 @@
 ---
 name: design-system
-description: >
-  Generate complete Tailwind CSS v4 design systems from color palettes and visual references.
-  Use this skill whenever the user wants to create a design system, theme, or styling foundation
-  for a website or application. Triggers include: requests for a "design system", "theme",
-  "global.css", "design tokens", "color system", or when the user provides a color palette
-  and/or UI screenshots and wants a cohesive styling foundation built from them.
-  Also use when the user says "create a design system from these screenshots",
-  "build me a theme based on this site", or "generate a Tailwind config from these colors".
-  Do NOT use for one-off component styling, individual page builds, or tasks better
-  suited to the frontend-design skill.
+description: Generate complete Tailwind CSS v4 design systems from color palettes and visual references. Use this skill whenever the user wants to create a design system, theme, or styling foundation for a website or application. Triggers include requests for a design system, theme, global.css, design tokens, color system, or when the user provides a color palette and/or UI screenshots and wants a cohesive styling foundation built from them. Also use when the user says things like create a design system from these screenshots, build me a theme based on this site, or generate a Tailwind config from these colors. Do NOT use for one-off component styling, individual page builds, or tasks better suited to the frontend-design skill.
 ---
 
 # Design System Generator
@@ -96,7 +87,7 @@ Produce two files:
 Read the reference templates before generating:
 ```
 Read references/token-template.css    # Semantic token structure to follow
-Read references/brief-template.md     # Design brief structure to follow
+Read references/design-brief-template.md     # Design brief structure to follow
 ```
 
 ---
@@ -143,7 +134,7 @@ Generate an accessible alternative, not a literal inversion. The counterpart sho
 
 ### DESIGN_BRIEF.md
 
-This document references **actual color names and hex values**, not semantic tokens. It is the human-readable identity guide. Follow the template in `references/brief-template.md`. Key principles:
+This document references **actual color names and hex values**, not semantic tokens. It is the human-readable identity guide. Follow the template in `references/design-brief-template.md`. Key principles:
 
 - The **Core Aesthetic Direction** section should be the most expansive — it articulates the design philosophy in depth
 - The **Color System** section shows the real colors with their names, hex values, and usage guidelines
