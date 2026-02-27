@@ -31,7 +31,7 @@ The user provides:
 
 ## Workflow
 
-This skill follows a strict **analyze → interpret → approve → plan → generate** workflow. Do not skip steps or jump ahead to file generation.
+Follow this strict **analyze → interpret → approve → plan → generate** workflow. Do not skip steps or jump ahead to file generation.
 
 ### Phase 1: Screenshot Analysis
 
@@ -54,7 +54,7 @@ Examine every screenshot carefully. Extract observations at two priority levels:
 
 ### Phase 2: Present Interpretation
 
-Present a thorough written interpretation of the aesthetic to the user. This is a conversation — the user must approve or provide feedback before proceeding. Structure the interpretation as:
+Present a thorough written interpretation of the aesthetic. This is a conversation — the user must approve or provide feedback before proceeding. Structure the interpretation as:
 
 1. **Aesthetic Direction** — A descriptive name and 2–3 sentence summary of the visual identity
 2. **Design Philosophy** — The guiding principles behind every visual decision
@@ -63,7 +63,7 @@ Present a thorough written interpretation of the aesthetic to the user. This is 
 5. **Typography Plan** — Proposed font pairing and hierarchy (use provided fonts or suggest based on aesthetic)
 6. **Special Treatments** — Any gradients, textures, or atmospheric effects worth encoding as utility classes
 
-Wait for user approval or feedback. Iterate if needed.
+Wait for user approval. Iterate on feedback before proceeding.
 
 ### Phase 3: Plan
 
@@ -146,10 +146,9 @@ This document references **actual color names and hex values**, not semantic tok
 
 ## Important Distinctions
 
-- **`global.css` uses semantic tokens** (`--primary`, `--background`, etc.) in oklch — framework-agnostic, swappable
-- **`DESIGN_BRIEF.md` uses real color names and hex values** (`Bold Orange #F76B15`, `Main Dark #0F0E0D`) — human-readable identity reference
-- These serve different purposes: the CSS is for machines/frameworks, the brief is for humans/designers
-- Keep this separation clean. Do not leak semantic token names into the brief or hex values into the CSS.
+- **`global.css`**: semantic tokens in oklch (`--primary`, `--background`) — for frameworks
+- **`DESIGN_BRIEF.md`**: real color names and hex values (`Bold Orange #F76B15`) — for humans
+- Keep this separation clean. Never leak token names into the brief or hex values into the CSS.
 
 ---
 

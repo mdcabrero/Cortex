@@ -57,13 +57,12 @@ Determine the output framework in this priority order:
 
 ### Locate Placeholder Images
 
-Check `/src/graphics/` for available placeholder images. Use only what exists:
+Identify the project's image/asset directory. Check these common locations in order:
+1. Path specified in CLAUDE.md or DESIGN_BRIEF.md
+2. `src/graphics/`, `src/assets/`, `public/images/`, `assets/`
+3. Ask the user if no image directory is found
 
-```
-List contents of /src/graphics/
-```
-
-Common placeholders: `placeholder.jpg`, `placeholder2.png`, `placeholder3.jpg`, etc.
+List contents of the identified directory. Use only files that actually exist.
 
 **Rules:**
 - NEVER invent image filenames — only use files that actually exist in the project
@@ -116,15 +115,12 @@ Map every color in the screenshot to a semantic token from the project's design 
 |---|---|
 | Page background | `bg-background` |
 | Card/surface background | `bg-card` |
-| Subtle/muted background | `bg-muted`, `bg-secondary` |
 | Primary heading text | `text-foreground` |
 | Secondary/description text | `text-muted-foreground` |
-| Accent-colored text | `text-accent-foreground`, `text-primary` |
 | Primary action button | `bg-primary text-primary-foreground` |
-| Secondary/ghost button | `bg-secondary text-secondary-foreground` |
 | Borders | `border-border` |
-| Hover backgrounds | `hover:bg-accent`, `hover:bg-muted` |
-| Focus rings | `ring-ring` |
+
+For the complete token set (`--muted`, `--accent`, `--secondary`, `--ring`, etc.), consult the project's `global.css` loaded in Phase 0.
 
 **CRITICAL:** If you see a color, immediately think "which token?" Never output hardcoded colors like `text-black`, `bg-white`, `text-gray-500`, `bg-[#hex]`, or any Tailwind color scale class. The only exception is `bg-[#hex]` for purely decorative elements that should NOT change with themes (rare).
 
@@ -197,179 +193,29 @@ Decide what is ONE component vs. what should be split:
 
 ## Phase 3: Code Generation
 
-Generate the component in the project's framework. Follow the framework-specific patterns below.
+Generate the component in the project's detected framework. Before writing code, read the framework-specific template and conventions:
 
-### Vue 3 (Composition API)
-
-```vue
-<script setup>
-/**
- * ComponentName
- * Brief description.
- */
-
-// Content data
-const heading = 'Exact heading from screenshot'
-const description = 'Exact description text.'
-
-// Repeated items
-const items = [
-  { id: 'item-1', title: 'First Item', text: 'Description' },
-  { id: 'item-2', title: 'Second Item', text: 'Description' },
-]
-
-// Images — only use files that exist in /src/graphics/
-const heroImage = '/src/graphics/placeholder.jpg'
-</script>
-
-<template>
-  <section>
-    <div class="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
-      <h2 class="text-3xl font-semibold text-foreground md:text-5xl">
-        {{ heading }}
-      </h2>
-      <p class="mt-4 text-muted-foreground lg:text-lg">
-        {{ description }}
-      </p>
-
-      <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <div
-          v-for="item in items"
-          :key="item.id"
-          class="rounded-xl border border-border bg-card p-6"
-        >
-          <h3 class="text-lg font-semibold text-foreground">{{ item.title }}</h3>
-          <p class="mt-2 text-muted-foreground">{{ item.text }}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-</template>
+```
+Read references/framework-templates.md
 ```
 
-**Vue conventions:**
-- `<script setup>` always first, then `<template>`. No `<style>` block — Tailwind handles styling.
-- Use `v-for` with `:key` for lists
-- Use `{{ }}` interpolation for text
-- Reactive data with `ref()` / `reactive()` only when state changes are needed
-- Props with `defineProps()` if the component receives data from a parent
-- All text content as `const` variables in `<script setup>` — zero hardcoded strings in `<template>`
-
-### Astro
-
-```astro
----
-/**
- * ComponentName
- * Brief description.
- */
-
-const heading = "Exact heading from screenshot";
-const description = "Exact description text.";
-
-const items = [
-  { id: "item-1", title: "First Item", text: "Description" },
-  { id: "item-2", title: "Second Item", text: "Description" },
-];
-
-const heroImage = "/src/graphics/placeholder.jpg";
----
-
-<section>
-  <div class="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
-    <h2 class="text-3xl font-semibold text-foreground md:text-5xl">
-      {heading}
-    </h2>
-    <p class="mt-4 text-muted-foreground lg:text-lg">
-      {description}
-    </p>
-
-    <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {items.map((item) => (
-        <div key={item.id} class="rounded-xl border border-border bg-card p-6">
-          <h3 class="text-lg font-semibold text-foreground">{item.title}</h3>
-          <p class="mt-2 text-muted-foreground">{item.text}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-```
-
-**Astro conventions:**
-- All content in frontmatter (`---` block)
-- Use `{variable}` interpolation
-- Arrays with `.map()` and `key` prop
-- No `<style>` block — Tailwind handles styling
-- Interactive behavior via `<script>` tags with vanilla JS (not TypeScript)
-
-### Plain HTML + Tailwind
-
-```html
-<!--
-  ComponentName
-  Brief description.
--->
-
-<section>
-  <div class="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
-    <h2 class="text-3xl font-semibold text-foreground md:text-5xl">
-      Exact heading from screenshot
-    </h2>
-    <p class="mt-4 text-muted-foreground lg:text-lg">
-      Exact description text.
-    </p>
-
-    <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <div class="rounded-xl border border-border bg-card p-6">
-        <h3 class="text-lg font-semibold text-foreground">First Item</h3>
-        <p class="mt-2 text-muted-foreground">Description</p>
-      </div>
-      <!-- Repeat for each item -->
-    </div>
-  </div>
-</section>
-```
-
-**HTML conventions:**
-- Content inline (no data abstraction layer)
-- Comment blocks for component identification
-- Repeated elements written out explicitly
+Follow the template structure exactly. Key rules across all frameworks:
+- All visible text extracted to data variables (not hardcoded in markup)
+- Semantic token classes only — no hardcoded colors
+- No `<style>` blocks — Tailwind handles all styling
+- Images reference only files confirmed to exist in the project
 
 ---
 
 ## Phase 4: Verification
 
-Before delivering, run through this checklist. Every item must pass.
+Before delivering, run through the full verification checklist:
 
-### Universal Checks
+```
+Read references/verification-checklist.md
+```
 
-- [ ] **All visible text** from the screenshot is present and verbatim
-- [ ] **All colors** use semantic design tokens — search the output for `gray`, `black`, `white`, `slate`, `zinc`, `neutral`, `stone`, `bg-[#` — there should be zero matches
-- [ ] **All images** reference files that actually exist in `/src/graphics/`
-- [ ] **Responsive** at mobile (base), tablet (`md:`), and desktop (`lg:`)
-- [ ] **Semantic HTML** used throughout (`section`, `nav`, `article`, `footer`, etc.)
-- [ ] **Spacing** matches the screenshot's proportions
-- [ ] **Design system alignment** — component follows the project's DESIGN_BRIEF.md conventions
-- [ ] **Hover and focus states** present on all interactive elements
-- [ ] **Accessible** — ARIA labels on nav, alt text on images, logical heading hierarchy
-
-### Framework-Specific Checks
-
-**Vue 3:**
-- [ ] All text extracted to `<script setup>` variables
-- [ ] Lists use `v-for` with `:key`
-- [ ] No `<style>` block (Tailwind only)
-- [ ] Reactive state only where actually needed
-
-**Astro:**
-- [ ] All text extracted to frontmatter
-- [ ] Arrays have `id` property for `.map()` keys
-- [ ] No TypeScript in `<script>` tags
-
-**HTML:**
-- [ ] Component wrapped in a clear comment block
-- [ ] Repeated elements written out (no template logic)
+Every item must pass. Pay special attention to: zero hardcoded colors, all text verbatim from screenshot, responsive at all breakpoints, and design system alignment.
 
 ---
 
