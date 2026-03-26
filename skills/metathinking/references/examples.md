@@ -100,6 +100,18 @@ These examples demonstrate how the metathinking pipeline works across different 
 
 ---
 
+## CSS / Animation
+
+**Problem:** "How do we smoothly animate the `backdrop-filter` on a modal open/close transition?"
+
+**Conventional search space:** CSS `transition` on `backdrop-filter`, `@keyframes` animation, `@property` custom property hack, `opacity()` filter function trick, `::before` pseudo-element with opacity — all variations of "find a way to animate or fake-animate `backdrop-filter` on the element that has it."
+
+**Hidden assumption:** "The `backdrop-filter` must live on the modal container — the element we're trying to animate."
+
+**Frame-break:** What if the blur doesn't belong on the modal at all? Move `backdrop-filter` to the overlay/dim layer that already sits behind the modal. That layer already fades in and out with the parent's opacity transition — so the blur rides the existing fade for free. No animation hacks, no JS hooks, no fighting the browser. The `backdrop-filter` animation problem disappears because you stopped trying to animate `backdrop-filter`.
+
+---
+
 ## Pattern Recognition Guide
 
 Use these signals to distinguish genuine frame-breaks from surface variation:
